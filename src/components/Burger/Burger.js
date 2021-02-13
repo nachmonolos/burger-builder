@@ -3,13 +3,15 @@ import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const Burger = ({ ingredients }) => {
-  const transformedIngredients = Object.keys({ ingredients });
+  const transformedIngredients = Object.keys(ingredients).map((igKey) => {
+    return [...Array(ingredients[igKey])].map((_, i) => {
+      return <BurgerIngredient key={igKey + i} type={igKey} />;
+    });
+  });
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type='bread-top' />
-      <BurgerIngredient type='salad' />
-      <BurgerIngredient type='cheese' />
-      <BurgerIngredient type='meat' />
+      {transformedIngredients}
       <BurgerIngredient type='bread-bottom' />
     </div>
   );
